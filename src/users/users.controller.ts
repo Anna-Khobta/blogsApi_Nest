@@ -8,7 +8,8 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
-import { UsersService } from './users.service';
+import { CreateUserInputModelType, UsersService } from './users.service';
+import { IsEmail, IsInt, Length, Min } from 'class-validator';
 
 @Controller('users')
 export class UsersController {
@@ -26,11 +27,12 @@ export class UsersController {
 
   @Post()
   createUser(@Body() inputModel: CreateUserInputModelType) {
-    return {
+    return inputModel;
+    /*{
       id: 12,
       name: inputModel.name,
       childrenCount: inputModel.childrenCount,
-    };
+    };*/
   }
 
   @Delete(':id')
@@ -49,8 +51,3 @@ export class UsersController {
     };
   }
 }
-
-type CreateUserInputModelType = {
-  name: string;
-  childrenCount: number;
-};
