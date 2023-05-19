@@ -7,10 +7,12 @@ import {
   Post,
   Put,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { CreateUserInputModelType, UsersService } from './users.service';
-import { IsEmail, IsInt, Length, Min } from 'class-validator';
+import { AuthGuard } from '../auth.guard';
 
+@UseGuards(AuthGuard)
 @Controller('users')
 export class UsersController {
   constructor(protected usersService: UsersService) {}
