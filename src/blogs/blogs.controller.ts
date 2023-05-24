@@ -1,3 +1,4 @@
+/*
 import {
   Body,
   Controller,
@@ -7,15 +8,21 @@ import {
   Post,
   Put,
   Query,
-  UseGuards,
 } from '@nestjs/common';
-import { CreateUserInputModelType, UsersService } from './users.service';
-import { AuthGuard } from '../auth.guard';
+import { BlogsService } from './blogs.service';
 
-@UseGuards(AuthGuard)
-@Controller('users')
-export class UsersController {
-  constructor(protected usersService: UsersService) {}
+@Controller('blogs')
+export class BlogsController {
+  constructor(protected blogsService: BlogsService) {}
+
+  @Post()
+  createBlog(@Body() inputModel: CreateBlogInputModelType) {
+    return {
+      id: 12,
+      name: inputModel.name,
+      childrenCount: inputModel.childrenCount,
+    };
+  }
 
   @Get()
   getUsers(@Query('term') term: string) {
@@ -27,16 +34,6 @@ export class UsersController {
     return [{ id: 1 }, { id: 2 }].find((u) => u.id === +userId);
   }
 
-  @Post()
-  createUser(@Body() inputModel: CreateUserInputModelType) {
-    return inputModel;
-    /*{
-      id: 12,
-      name: inputModel.name,
-      childrenCount: inputModel.childrenCount,
-    };*/
-  }
-
   @Delete(':id')
   deleteUser(@Param('id') userId: string) {
     return;
@@ -45,7 +42,7 @@ export class UsersController {
   @Put(':id')
   updateUser(
     @Param('id') userId: string,
-    @Body() model: CreateUserInputModelType,
+    @Body() model: CreateBlogInputModelType,
   ) {
     return {
       id: userId,
@@ -53,3 +50,10 @@ export class UsersController {
     };
   }
 }
+
+type CreateBlogInputModelType = {
+  name: string;
+  description: string;
+  websiteUrl: string;
+};
+*/
